@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script src="js/Particle.js"></script>
+    <script>
+      var SCREEN_WIDTH = window.innerWidth,
+      SCREEN_HEIGHT = window.innerHeight
+      HALF_WIDTH = SCREEN_WIDTH / 2,
+      HALF_HEIGHT = SCREEN_HEIGHT / 2;
+
+      canvas = document.createElement("canvas");
+      context = canvas.getContext("2d");
+      // velocityX = 1;
+      // velocityY = 1;
+      // posX = HALF_WIDTH;
+      // posY = HALF_HEIGHT;
+      particles = [],
+      MAX_PARTICLES = 100;
+
+      setup();
+      function setup()
+      {
+        var container = document.createElement("div");
+        document.body.appendChild(container);
+
+        container.appendChild(canvas);
+        canvas.width = SCREEN_WIDTH;
+        canvas.height = SCREEN_HEIGHT;
+
+        context.fillStyle = ("rgb(0, 0, 0)");
+        context.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+        // context.fillStyle = 'white';
+        // context.beginPath();
+        // context.arc(this.posX, this.posY, this.size, 0, 2 * Math.PI, false);
+        // context.closePath();
+        // context.fill();
+
+        // particle = new Particle(HALF_WIDTH, HALF_HEIGHT);
+        // particle.velocityX = 10;
+        // particle.velocityY = -10;
+        // particle.render(context);
+      }
+
+      setInterval(loop, 1000 / 30);
+
+      function loop()
+      {
+        // posX += velocityX;
+        // posY += velocityY;
+
+        context.fillStyle = ("rgb(0, 0, 0)");
+        context.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+        // context.fillStyle = 'white';
+        // context.beginPath();
+        // context.arc(this.posX, this.posY, this.size, 0, 2 * Math.PI, false);
+        // context.closePath();
+        // context.fill();
+
+        makeParticles(4);
+
+        for(var i = 0, l = particles.length; i < l; i++)
+        {
+          var particle = particles[i];
+
+          particle.update();
+          particle.render(context);
+        }
+
+        while(particles.length > MAX_PARTICLES)
+        {
+          particles.shift();
+        }
+      }
+
+      function makeParticles(particleCount)
+      {
+        for(var i = 0; i < particleCount; i++)
+        {
+          var particle = new Particle(HALF_WIDTH, HALF_HEIGHT);
+          particle.velocityX = (Math.random() * 20) - 10;
+          particle.velocityY = (Math.random() * 20) - 10;
+
+          particle.drag = 0.96;
+          particle.gravity = 0.5;
+
+          particles.push(particle);
+        }
+      }
+
+    </script>
+
+  </body>
+</html>
